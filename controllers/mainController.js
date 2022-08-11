@@ -1,4 +1,4 @@
-const MainModel = require("../models/mainModel");
+//const MainModel = require("../models/mainModel");
 const fs = require("fs")
 const multer = require('multer');
 const path = require('path');
@@ -28,7 +28,10 @@ function extractData(data){
     for(i = 0; i< arrdata.length-1; i++){
         level = arrdata[i].split("-")[3]
         msg = arrdata[i].split("details\":\"")[1].split(",")[0]
-        result.push({level: level, msg:msg})
+        date = new Date( arrdata[i].split(' ')[0])
+        timestamp = date.getTime()
+        transactionId = arrdata[i].split("transactionId\":\"")[1].split(",")[0]
+        result.push({timestamp:timestamp , transactionId:transactionId , level: level, msg:msg })
         // console.log(i, level, msg.substring(0, (msg.length-1)))
         // console.log(result)
     }
